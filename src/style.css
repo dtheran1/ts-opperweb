@@ -14,14 +14,10 @@
 @layer base {
   html {
     font-family: Poppins, system-ui, sans-serif;
-    
-    /* background: #CA38ED; */
 
   }
 }
 
 body{
   margin: 0;
-  display: flex;
-  justify-content: center;
 }
