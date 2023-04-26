@@ -42,7 +42,8 @@
             <div class="flex justify-end mt-2">
               <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
             </div>
-            <div class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-4">
+            <div
+              class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-4">
               <button class="w-full h-full hover:scale-110">Acceder</button>
             </div>
           </div>
@@ -70,24 +71,24 @@
         </div>
       </div>
     </div>
-    <div class="hidden md:block relative bg-complement">
-      <div class="w-[450px] mt-10 h-[450px] mx-auto z-10 bg-pinkCustom rounded-full">
-        <Carousel class="carousel" v-slot="{ currentSlide }">
-          <Slide v-for="(slide, index) in carouselSlides" :key="index">
-            <div v-show="currentSlide === index + 1" class="slide-info  top-14 left- z-50">
-              <div>
-                <img :src="slide.slide" alt="slider" class="mx-auto h-[550px]" :class="currentSlide === 1 && 'h-[600px]'">
-              </div>
-              <div class="w-[400px] mx-auto">
-                <p class="text-white font-bold text-[60px]"> anime<span class="text-primary">{{
-                  slide.title.split('anime').join('') }}.</span>
-                </p>
-                <p class="text-white text-center mx-auto"> {{ slide.description }} </p>
-              </div>
+
+
+    <div class="hidden md:block bg-complement">
+      <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000" class="carousel relative max-h-screen h-screen"
+        v-slot="{ currentSlide }">
+        <Slide v-for="(slide, index) in carouselSlides" :key="index">
+          <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
+            <div class="w-[550px] h-[550px] bg-primary rounded-full grow mb-40">
+              <img :src="slide.slide" alt="" class="w-[700px] h-[700px]" />
             </div>
-          </Slide>
-        </Carousel>
-      </div>
+
+            <div class="description w-1/2">
+              <span class="font-bold text-6xl text-white"> anime<span class="text-primary">{{ slide.title }}</span></span>
+              <p class="text-white text-sm"> {{ slide.description }} </p>
+            </div>
+          </div>
+        </Slide>
+      </Carousel>
     </div>
   </div>
 </template>
@@ -132,4 +133,5 @@ export default defineComponent({
 
 })
 </script>
-<style scoped></style>
+<style scoped>
+</style>
