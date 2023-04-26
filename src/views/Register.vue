@@ -8,27 +8,65 @@
       </div>
       <img src="../assets/login/arrowLeft.svg" class="pl-[34px]" alt="arrow-left">
       <div class="flex justify-center w-full">
-        <div class="-mt-5 text-white">
+        <div class="-mt-5 text-white flex gap-5">
           <img src="../assets/login/avartar-register.png" alt="avatar-login">
           <div class="flex flex-col justify-center text-center">
-            <span class="font-bold text-4xl">ひさしぶり!</span>
-            <p class="italic text-base tracking-wider">¡Hola, te extrañamos!</p>
+            <span class="font-bold text-4xl">ようこそ!</span>
+            <p class="italic text-base tracking-wider">Bienvenidos(a)!</p>
           </div>
         </div>
       </div>
-      <div class="w-[343px] mx-auto px-4 mt-4 text-white">
-        <form class="mt-1">
-          <div>
+      <div class="w-[343px] mx-auto text-sm px-4 mt-4 text-white natural">
+        <div class="flex justify-between mb-3">
+          <p>Tipo de persona</p>
+          <div class="flex items-center gap-3">
+            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value=""
+              class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <label for="helper-radio" class="font-medium">Natural</label>
+          </div>
+          <div class="flex items-center gap-3">
+            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value=""
+              class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <label for="helper-radio" class="font-medium">Jurídica</label>
+          </div>
+        </div>
+
+        <form v-if="isPerson" class="mt-1">
+          <div class="mb-3">
+            <p>Nombre</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Apellido</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Teléfono</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Número de identificación</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
             <p>Email</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
                 placeholder="Email">
             </div>
-            <div class="flex justify-end mt-1">
+            <!-- <div class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Email Inválido</span>
-            </div>
+            </div> -->
           </div>
-          <div class="mt-4">
+          <div class="mb-3">
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
@@ -39,14 +77,79 @@
               </button>
             </div>
           </div>
+          <div class="mb-4">
+            <p>Confirmar contraseña</p>
+            <div
+              class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
+              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña">
+              <button>
+                <img src="../assets/login/ojito.svg" alt="">
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-8">
+            <button type="submit" class="w-full h-full hover:scale-110">Registrar</button>
+          </div>
         </form>
-        <div class="flex justify-end mt-2">
-          <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
-        </div>
 
-        <div class="bg-pinkCustom h-[60px] rounded-md grid place-items-center mt-4">
-          <button class="w-full h-full">Acceder</button>
-        </div>
+        <form v-if="isLegal" class="mt-1">
+          <div class="mb-3">
+            <p>Razón social</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>NIT</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Teléfono</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+            </div>
+          </div>
+          <div class="mb-3">
+            <p>Email</p>
+            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+              <input type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Email">
+            </div>
+            <!-- <div class="flex justify-end mt-1">
+              <span class="text-redCustom text-sm">Email Inválido</span>
+            </div> -->
+          </div>
+          <div class="mb-3">
+            <p>Contraseña</p>
+            <div
+              class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
+              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña">
+              <button>
+                <img src="../assets/login/ojito.svg" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="mb-4">
+            <p>Confirmar contraseña</p>
+            <div
+              class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
+              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña">
+              <button>
+                <img src="../assets/login/ojito.svg" alt="">
+              </button>
+            </div>
+          </div>
+          <div
+            class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-8">
+            <button type="submit" class="w-full h-full hover:scale-110">Registrar</button>
+          </div>
+        </form>
 
         <div class="flex justify-between mt-10">
           <p class="h-1 bg-white rounded-full w-14" />
@@ -64,33 +167,36 @@
         </div>
 
         <div class="mt-[41px] mb-10">
-          <router-link :to="{ name: 'Register' }">
+          <router-link :to="{ name: 'Home' }">
             <span class="text-sm text-white">Ya estás registrado? <span class="text-pinkCustom">Acceder</span></span>
           </router-link>
         </div>
       </div>
     </div>
     <div class="hidden md:block relative bg-complement">
-      <div class="w-[538px] mt-10 h-[538px] mx-auto z-10 bg-pinkCustom rounded-full absolute left-1/4 top-8" />
-      <Carousel class="carousel" v-slot="{ currentSlide }">
-        <Slide v-for="(slide, index) in carouselSlides" :key="index">
-          <div v-show="currentSlide === index + 1" class="slide-info absolute top-14 left-48 z-50">
-            <img :src="slide.slide" alt="slider" class="mx-auto" :class="currentSlide === 1 && 'h-[600px]'">
-            <p class="text-white font-bold text-center text-[80px]"> anime<span class="text-primary">{{
-              slide.title.split('anime').join('') }}.</span>
-            </p>
-            <div class="">
-              <p class="text-white text-center w-[463px] mx-auto"> {{ slide.description }} </p>
+      <div class="w-[450px] mt-48 h-[450px] mx-auto z-10 bg-pinkCustom rounded-full">
+        <Carousel class="carousel" v-slot="{ currentSlide }">
+          <Slide v-for="(slide, index) in carouselSlides" :key="index">
+            <div v-show="currentSlide === index + 1" class="slide-info  top-14 left- z-50">
+              <div>
+                <img :src="slide.slide" alt="slider" class="mx-auto h-[550px]" :class="currentSlide === 1 && 'h-[600px]'">
+              </div>
+              <div class="w-[400px] mx-auto">
+                <p class="text-white font-bold text-[60px]"> anime<span class="text-primary">{{
+                  slide.title.split('anime').join('') }}.</span>
+                </p>
+                <p class="text-white text-center mx-auto"> {{ slide.description }} </p>
+              </div>
             </div>
-          </div>
-        </Slide>
-      </Carousel>
+          </Slide>
+        </Carousel>
+      </div>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 
@@ -105,6 +211,9 @@ export default defineComponent({
     Slide
   },
   setup() {
+    const isPerson = ref(true)
+    const isLegal = ref(false)
+
     const carouselSlides = [
       {
         title: 'Yabu',
@@ -123,7 +232,9 @@ export default defineComponent({
       },
     ]
     return {
-      carouselSlides
+      carouselSlides,
+      isPerson,
+      isLegal
     }
   }
 

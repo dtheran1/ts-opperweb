@@ -3,7 +3,7 @@
     <slot :currentSlide="currentSlide" />
 
     <!-- Pagination -->
-    <div class="pagination absolute bottom-10 w-full flex justify-center gap-4 items-center">
+    <div class="pagination mt-20 flex justify-center gap-4 items-center">
       <span v-for="(slide, i) in getSlideCount" :key="i" @click="goToSlide(i)"
         class="cursor-pointer w-14 h-2 rounded-full shadow-md shadow-grayCustom"
         :class="i + 1 === currentSlide ? 'bg-gray-100' : 'bg-gray-600'">
@@ -11,12 +11,19 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 export default defineComponent({
+  name: 'Carousel',
+  props: {
+    isRegister: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const currentSlide = ref(1)
-    const getSlideCount = ref(null)
+    const getSlideCount = ref<number | null>(null)
     const autoPlayEnabled = ref(true)
     const timeoutDuration = ref(5000)
 
@@ -28,7 +35,7 @@ export default defineComponent({
       currentSlide.value += 1;
     };
 
-    const goToSlide = (index) => {
+    const goToSlide = (index: number) => {
       currentSlide.value = index + 1;
     };
 

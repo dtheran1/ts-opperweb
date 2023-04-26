@@ -39,15 +39,14 @@
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
             </div>
+            <div class="flex justify-end mt-2">
+              <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
+            </div>
+            <div class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-4">
+              <button class="w-full h-full hover:scale-110">Acceder</button>
+            </div>
           </div>
         </form>
-        <div class="flex justify-end mt-2">
-          <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
-        </div>
-
-        <div class="bg-pinkCustom h-[60px] rounded-md grid place-items-center mt-4">
-          <button class="w-full h-full">Acceder</button>
-        </div>
 
         <div class="flex justify-between mt-10">
           <p class="h-1 bg-white rounded-full w-14" />
@@ -72,20 +71,23 @@
       </div>
     </div>
     <div class="hidden md:block relative bg-complement">
-      <div class="w-[538px] mt-10 h-[538px] mx-auto z-10 bg-pinkCustom rounded-full absolute left-1/4 top-8" />
-      <Carousel class="carousel" v-slot="{ currentSlide }">
-        <Slide v-for="(slide, index) in carouselSlides" :key="index">
-          <div v-show="currentSlide === index + 1" class="slide-info absolute top-14 left-48 z-50">
-            <img :src="slide.slide" alt="slider" class="mx-auto" :class="currentSlide === 1 && 'h-[600px]'">
-            <p class="text-white font-bold text-center text-[80px]"> anime<span class="text-primary">{{
-              slide.title.split('anime').join('') }}.</span>
-            </p>
-            <div class="">
-              <p class="text-white text-center w-[463px] mx-auto"> {{ slide.description }} </p>
+      <div class="w-[450px] mt-10 h-[450px] mx-auto z-10 bg-pinkCustom rounded-full">
+        <Carousel class="carousel" v-slot="{ currentSlide }">
+          <Slide v-for="(slide, index) in carouselSlides" :key="index">
+            <div v-show="currentSlide === index + 1" class="slide-info  top-14 left- z-50">
+              <div>
+                <img :src="slide.slide" alt="slider" class="mx-auto h-[550px]" :class="currentSlide === 1 && 'h-[600px]'">
+              </div>
+              <div class="w-[400px] mx-auto">
+                <p class="text-white font-bold text-[60px]"> anime<span class="text-primary">{{
+                  slide.title.split('anime').join('') }}.</span>
+                </p>
+                <p class="text-white text-center mx-auto"> {{ slide.description }} </p>
+              </div>
             </div>
-          </div>
-        </Slide>
-      </Carousel>
+          </Slide>
+        </Carousel>
+      </div>
     </div>
   </div>
 </template>
