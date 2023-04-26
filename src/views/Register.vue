@@ -5,12 +5,11 @@
       <div class="pl-[34px] pt-5 pb-6 hidden lg:flex">
         <img src="../assets/login/image 1.png" alt="logo-page">
         <span class="font-extrabold text-white self-center pl-3">anime<span class="text-primary">yabu.</span></span>
-
       </div>
       <img src="../assets/login/arrowLeft.svg" class="pl-[34px]" alt="arrow-left">
       <div class="flex justify-center w-full">
         <div class="-mt-5 text-white">
-          <img src="../assets/login/avatar-login.png" alt="avatar-login">
+          <img src="../assets/login/avartar-register.png" alt="avatar-login">
           <div class="flex flex-col justify-center text-center">
             <span class="font-bold text-4xl">ひさしぶり!</span>
             <p class="italic text-base tracking-wider">¡Hola, te extrañamos!</p>
@@ -66,7 +65,7 @@
 
         <div class="mt-[41px] mb-10">
           <router-link :to="{ name: 'Register' }">
-            <span class="text-sm text-white">Quieres registrarte? <span class="text-pinkCustom">Registrate</span></span>
+            <span class="text-sm text-white">Ya estás registrado? <span class="text-pinkCustom">Acceder</span></span>
           </router-link>
         </div>
       </div>

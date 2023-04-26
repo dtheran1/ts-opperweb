@@ -8,6 +8,12 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Login.vue'),
     meta: { noAuth: true }
   },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue'),
+    meta: { noAuth: true }
+  },
 ];
 
 const router = createRouter({
