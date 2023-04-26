@@ -14,7 +14,7 @@
 
     <!-- Pagination -->
     <div v-if="pagintationEnabled"
-      class="absolute bottom-4 w-full flex justify-center items-center h-1 rounded-full gap-4">
+      class="absolute w-full flex justify-center items-center h-1 rounded-full gap-4" :class="isRegister ? '-bottom-28' : 'bottom-20'">
       <span @click="goToSlide(index)" v-for="(slide, index) in getSlideCount" :key="index"
         class="cursor-pointer w-10 h-2 shadow-md rounded-full shadow-grayCustom"
         :class="index + 1 === currentSlide ? 'bg-gray-100' : 'bg-gray-600'">

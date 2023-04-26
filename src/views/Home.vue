@@ -1,10 +1,19 @@
 <template>
-  <div>
-    Home
+  <div class="flex">
+    <div class="bg-primary w-1/4">
+    
+    </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
+  name: 'Home',
+  setup() {
+
+    return {
+
+    }
+  }
 
 }
 </script>

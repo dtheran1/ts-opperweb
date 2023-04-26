@@ -173,23 +173,24 @@
         </div>
       </div>
     </div>
-    <div class="hidden md:block bg-complement pt-20">
-        <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000" class="carousel relative max-h-screen h-screen"
-          v-slot="{ currentSlide }">
-          <Slide v-for="(slide, index) in carouselSlides" :key="index">
-            <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
-              <div class="w-[550px] h-[550px] bg-primary rounded-full grow mb-40">
-                <img :src="slide.slide" alt="" class="w-[700px] h-[700px]" />
-              </div>
-
-              <div class="description w-1/2">
-                <span class="font-bold text-6xl text-white"> anime<span class="text-primary">{{ slide.title }}</span></span>
-                <p class="text-white text-sm"> {{ slide.description }} </p>
-              </div>
+    <div class="hidden md:block bg-complement">
+      <Carousel :isRegister="true" :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000"
+        class="carousel relative max-h-full h-full mt-40" v-slot="{ currentSlide }">
+        <Slide v-for="(slide, index) in carouselSlides" :key="index">
+          <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
+            <div class="w-[380px] h-[380px] bg-primary rounded-full mb-40">
+              <img :src="slide.slide" alt="" class="w-96 lg:w-[700px] h-[500px]" />
             </div>
-          </Slide>
-        </Carousel>
-      </div>
+
+            <div class="flex flex-col justify-center">
+              <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
+              }}</span></span>
+              <p class="text-white text-sm text-center w-[400px]"> {{ slide.description }} </p>
+            </div>
+          </div>
+        </Slide>
+      </Carousel>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -240,7 +241,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .carousel {
-    max-height: 100vh;
-    height: 100vh;
-  }
+  max-height: 100vh;
+  height: 100vh;
+}
 </style>
