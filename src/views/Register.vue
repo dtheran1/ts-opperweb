@@ -88,10 +88,9 @@
               </button>
             </div>
           </div>
-          <div
-            class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-8">
-            <button type="submit" class="w-full h-full hover:scale-110">Registrar</button>
-          </div>
+          <Btn>
+            Registrar
+          </Btn>
         </form>
 
         <form v-if="isLegal" class="mt-1">
@@ -145,10 +144,9 @@
               </button>
             </div>
           </div>
-          <div
-            class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-8">
-            <button type="submit" class="w-full h-full hover:scale-110">Registrar</button>
-          </div>
+          <Btn>
+            Registrar
+          </Btn>
         </form>
 
         <div class="flex justify-between mt-10">
@@ -166,23 +164,25 @@
           <img src="../assets/login/logoFacebook.svg" alt="logoFacebook">
         </div>
 
-        <div class="mt-[41px] mb-10">
+        <div class="mt-[41px] mb-10 flex justify-center">
           <router-link :to="{ name: 'Home' }">
             <span class="text-sm text-white">Ya estás registrado? <span class="text-pinkCustom">Acceder</span></span>
           </router-link>
         </div>
       </div>
     </div>
+
     <div class="hidden md:block bg-complement">
       <Carousel :isRegister="true" :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000"
         class="carousel relative max-h-full h-full mt-40" v-slot="{ currentSlide }">
         <Slide v-for="(slide, index) in carouselSlides" :key="index">
           <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
             <div class="w-[380px] h-[380px] bg-primary rounded-full mb-40">
-              <img :src="slide.slide" alt="" class="w-96 lg:w-[700px] h-[500px]" />
+              <img :src="slide.slide" alt="slider" class="w-96 lg:w-[700px]"
+                  :class="currentSlide === 1 && 'pt-20'" />
             </div>
 
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center" :class="currentSlide !== 1 ? 'mt-44' : 'mt-24'">
               <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
               }}</span></span>
               <p class="text-white text-sm text-center w-[400px]"> {{ slide.description }} </p>
@@ -203,11 +203,14 @@ import slade1 from '../assets/login/slider1.png'
 import slade2 from '../assets/login/slider2.png'
 import slade3 from '../assets/login/slider3.png'
 
+import Btn from '../components/Btn.vue'
+
 export default defineComponent({
   name: 'login',
   components: {
     Carousel,
-    Slide
+    Slide,
+    Btn
   },
   setup() {
     const isPerson = ref(true)

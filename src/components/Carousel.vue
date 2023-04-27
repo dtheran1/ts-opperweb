@@ -64,9 +64,7 @@ export default defineComponent({
   setup(props) {
     const currentSlide = ref(1);
     const getSlideCount = ref<number | null>(null);
-    const autoPlayEnabled = ref(
-      props.startAutoPlay === undefined ? true : props.startAutoPlay
-    );
+    const autoPlayEnabled = ref(true);
     const timeoutDuration = ref(props.timeout === undefined ? 5000 : props.timeout);
     const pagintationEnabled = ref(
       props.pagination === undefined ? true : props.pagination

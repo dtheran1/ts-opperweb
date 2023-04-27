@@ -42,10 +42,9 @@
             <div class="flex justify-end mt-2">
               <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
             </div>
-            <div
-              class="bg-pinkCustom hover:bg-primary text-secondary hover:text-white h-[60px] rounded-md grid place-items-center mt-4">
-              <button class="w-full h-full hover:scale-110">Acceder</button>
-            </div>
+            <Btn>
+              Acceder
+            </Btn>
           </div>
         </form>
 
@@ -64,7 +63,7 @@
           <img src="../assets/login/logoFacebook.svg" alt="logoFacebook">
         </div>
 
-        <div class="mt-[41px] mb-10">
+        <div class="mt-[41px] mb-10 flex justify-center">
           <router-link :to="{ name: 'Register' }">
             <span class="text-sm text-white">Quieres registrarte? <span class="text-pinkCustom">Registrate</span></span>
           </router-link>
@@ -72,19 +71,20 @@
       </div>
     </div>
 
-
     <div class="hidden md:block bg-complement">
-      <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000" class="carousel relative max-h-full h-full"
-        v-slot="{ currentSlide }">
+      <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
+        class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
         <Slide v-for="(slide, index) in carouselSlides" :key="index">
           <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
-            <div class="w-[380px] h-[380px] bg-primary rounded-full mb-40">
-              <img :src="slide.slide" alt="" class="w-96 lg:w-[700px] h-[500px]" />
+            <div class="w-[380px] h-[380px] bg-primary rounded-full">
+              <img :src="slide.slide" alt="slider" class="w-96 lg:w-[700px]"
+                :class="currentSlide === 1 && 'pt-20'" />
             </div>
 
-            <div class="flex flex-col justify-center">
-              <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title }}</span></span>
-              <p class="text-white text-sm text-center w-[400px]"> {{ slide.description }} </p>
+            <div class="flex flex-col justify-center" :class="currentSlide !== 1 ? 'mt-44'  : 'mt-24'">
+              <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
+              }}</span></span>
+              <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
             </div>
           </div>
         </Slide>
@@ -102,11 +102,14 @@ import slade1 from '../assets/login/slider1.png'
 import slade2 from '../assets/login/slider2.png'
 import slade3 from '../assets/login/slider3.png'
 
+import Btn from '../components/Btn.vue'
+
 export default defineComponent({
   name: 'login',
   components: {
     Carousel,
-    Slide
+    Slide,
+    Btn
   },
   setup() {
     const carouselSlides = [
@@ -133,5 +136,4 @@ export default defineComponent({
 
 })
 </script>
-<style scoped>
-</style>
+<style scoped></style>
