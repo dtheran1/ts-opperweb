@@ -26,8 +26,10 @@
 <script lang="ts">
 import Btn from '../components/Btn.vue'
 import store from '../store'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { getPokes } from '../services/GetPoke.ts'
 export default defineComponent({
   name: 'Home',
   components: {
@@ -38,6 +40,17 @@ export default defineComponent({
     const logout = () => {
       store.commit('logout')
     }
+
+    const getPokemons = () => {
+      getPokes()
+        .then((res) => {
+          console.log(res.data.results)
+        })
+    }
+
+    onMounted(() => {
+      getPokemons()
+    })
 
     const seeCategories = () => {
       router.push('/backoffice/categories-list')

@@ -1,9 +1,9 @@
 <template>
   <div class="flex text-white">
-    <div class="bg-complement w-1/4 h-screen p-6">
+    <div class="bg-complement w-1/4 min-h-screen p-6">
       <div class="flex gap-3">
         <router-link :to="{ name: 'Home' }">
-          <img src="../assets/login/image 1.png" alt="logo">
+          <img src="../assets/login/image 1.png" alt="logo" class=" min-w-fit w-12">
         </router-link>
         <h1 class="text-xl font-extrabold self-center">anime<span class="text-primary">yabu.</span> </h1>
       </div>
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="bg-secondary w-full text-white pl-28 pt-20">
+    <div class="bg-secondary w-full text-white pl-28 pt-20 pb-10">
       <router-view></router-view>
     </div>
   </div>

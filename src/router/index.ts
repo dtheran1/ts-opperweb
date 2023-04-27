@@ -5,7 +5,6 @@ export const routes: Array<RouteRecordRaw> = [
     path: '/backoffice',
     name: 'Layout',
     component: () => import('../views/Layout.vue'),
-    meta: { noAuth: true },
     children: [
       {
         path: '',
@@ -50,6 +49,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+// router.beforeEach((to, from, next) => {
+  
+//   if(from.name === 'Login') return
+// })
 
 
 export default router
