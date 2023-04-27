@@ -18,12 +18,12 @@
         </div>
       </div>
       <div class="w-[343px] mx-auto px-4 mt-4 text-white">
-        <form class="mt-1">
+        <form class="mt-1" @submit.prevent="login">
           <div>
             <p>Email</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Email">
+              <input required type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Email" v-model="user.email">
             </div>
             <div class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Email Inválido</span>
@@ -33,8 +33,8 @@
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña">
+              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña" v-model="user.password">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
@@ -42,7 +42,7 @@
             <div class="flex justify-end mt-2">
               <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
             </div>
-            <Btn>
+            <Btn type="submit">
               Acceder
             </Btn>
           </div>
@@ -94,7 +94,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, reactive, onMounted, computed } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 
@@ -103,6 +103,9 @@ import slade2 from '../assets/login/slider2.png'
 import slade3 from '../assets/login/slider3.png'
 
 import Btn from '../components/Btn.vue'
+import { User } from '../model/user'
+import { useStore } from 'vuex'
+import router from '../router/index'
 
 export default defineComponent({
   name: 'login',
@@ -112,41 +115,23 @@ export default defineComponent({
     Btn
   },
   setup() {
-    function getViewPortHeight() {
-      var viewportheight;
-      if (typeof window.innerWidth != 'undefined') {
-        viewportheight = window.innerHeight;
-        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-      } else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
-        viewportheight = document.documentElement.clientHeight;
-      } else {
-        viewportheight = document.getElementsByTagName('body')[0].clientHeight;
-      }
-      return viewportheight;
+    const store = useStore()
 
-    }
-    function getViewPortWidth() {
-      var viewportwidth;
-      // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-      if (typeof window.innerWidth != 'undefined') {
-        viewportwidth = window.innerWidth;
-        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-      } else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
-        viewportwidth = document.documentElement.clientWidth;
-        // older versions of IE
-      } else {
-        viewportwidth = document.getElementsByTagName('body')[0].clientWidth;
-      }
-      return viewportwidth;
-    }
+    const isLogued = computed(() => store.state.isLogued)
 
-    const width = ref(getViewPortWidth())
-    const h = ref(getViewPortHeight())
+    const user = reactive<User>({
+      email: '',
+      password: ''
+    })
+
+    const login = () => {
+      store.commit('login', user)
+      router.push('/backoffice')
+    }
 
     onMounted(() => {
-      console.log(width.value);
-      console.log(h.value);
-
+      store.commit('initializeStore')
+      isLogued.value && router.push('/backoffice')
     })
 
     const carouselSlides = [
@@ -167,7 +152,9 @@ export default defineComponent({
       },
     ]
     return {
-      carouselSlides
+      carouselSlides,
+      user,
+      login
     }
   }
 

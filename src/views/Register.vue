@@ -20,46 +20,50 @@
         <div class="flex justify-between mb-3">
           <p>Tipo de persona</p>
           <div class="flex items-center gap-3">
-            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="person" name="person"
-              class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="person"
+              name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Natural</label>
           </div>
           <div class="flex items-center gap-3">
-            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="legal" name="person"
-              class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="legal"
+              name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Jurídica</label>
           </div>
         </div>
-        <form v-if="isPerson === 'person'" class="mt-1">
+        <form v-if="isPerson === 'person'" class="mt-1" @submit.prevent="registerPerson">
           <div class="mb-3">
             <p>Nombre</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="naturalPerson.name">
             </div>
           </div>
           <div class="mb-3">
             <p>Apellido</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="naturalPerson.lastName">
             </div>
           </div>
           <div class="mb-3">
             <p>Teléfono</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="naturalPerson.phone">
             </div>
           </div>
           <div class="mb-3">
             <p>Número de identificación</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="naturalPerson.dni">
             </div>
           </div>
           <div class="mb-3">
             <p>Email</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Email">
+              <input required type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="usuario@yabu.com" v-model="naturalPerson.email">
             </div>
             <!-- <div class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Email Inválido</span>
@@ -69,8 +73,8 @@
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña">
+              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña" v-model="naturalPerson.password">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
@@ -80,8 +84,8 @@
             <p>Confirmar contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña">
+              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña" v-model="naturalPerson.confirmPassword">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
@@ -92,30 +96,33 @@
           </Btn>
         </form>
 
-        <form v-if="isPerson === 'legal'" class="mt-1">
+        <form v-if="isPerson === 'legal'" class="mt-1" @submit.prevent="registerPerson">
           <div class="mb-3">
             <p>Razón social</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="legalPerson.companyName">
             </div>
           </div>
           <div class="mb-3">
             <p>NIT</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="legalPerson.nit">
             </div>
           </div>
           <div class="mb-3">
             <p>Teléfono</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+              <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                v-model="legalPerson.phone">
             </div>
           </div>
           <div class="mb-3">
             <p>Email</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
-              <input type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Email">
+              <input required type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="usuario@yabu.com" v-model="legalPerson.email">
             </div>
             <!-- <div class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Email Inválido</span>
@@ -125,8 +132,8 @@
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña">
+              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña" v-model="legalPerson.password">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
@@ -136,8 +143,8 @@
             <p>Confirmar contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña">
+              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="Contraseña" v-model="legalPerson.confirmPassword">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
@@ -172,24 +179,25 @@
     </div>
 
     <div class="hidden md:block bg-complement h-auto">
-        <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
-          class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
-          <Slide v-for="(slide, index) in carouselSlides" :key="index">
-            <div v-show="currentSlide === index + 1" class="absolute m-auto left-0 right-0 ">
-              <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
-                <img :src="slide.slide" alt="slider" class="h-[598px] absolute m-auto  left-0 right-0 w-96 pt-10 lg:w-[419px]" />
-              </div>
-              <div class="mx-auto mt-20 z-50">
-                <div class="flex flex-col justify-center items-center">
-                  <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
-                  }}</span></span>
-                  <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
-                </div>
+      <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
+        class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
+        <Slide v-for="(slide, index) in carouselSlides" :key="index">
+          <div v-show="currentSlide === index + 1" class="absolute m-auto left-0 right-0 ">
+            <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
+              <img :src="slide.slide" alt="slider"
+                class="h-[598px] absolute m-auto  left-0 right-0 w-96 pt-10 lg:w-[419px]" />
+            </div>
+            <div class="mx-auto mt-20 z-50">
+              <div class="flex flex-col justify-center items-center">
+                <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
+                }}</span></span>
+                <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
               </div>
             </div>
-          </Slide>
-        </Carousel>
-      </div>
+          </div>
+        </Slide>
+      </Carousel>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -203,6 +211,7 @@ import slade2 from '../assets/login/slider2.png'
 import slade3 from '../assets/login/slider3.png'
 
 import Btn from '../components/Btn.vue'
+import { Legal, Person } from '../model/user'
 
 export default defineComponent({
   name: 'login',
@@ -214,24 +223,32 @@ export default defineComponent({
   setup() {
     const isPerson = ref('person')
 
-    const naturalPerson = reactive({
+    const naturalPerson = reactive<Person>({
       name: '',
       lastName: '',
-      phone: '',
-      dni: '',
+      phone: null,
+      dni: null,
       email: '',
       password: '',
       confirmPassword: ''
     })
 
-    const legalPerson = reactive({
+    const legalPerson = reactive<Legal>({
       companyName: '',
-      nit: '',
-      phone: '',
+      nit: null,
+      phone: null,
       email: '',
       password: '',
       confirmPassword: ''
     })
+
+    const registerPerson = () => {
+      if (isPerson.value === 'person' ) {
+        console.log(naturalPerson);
+      } else {
+        console.log(legalPerson);
+      }
+    }
 
     const carouselSlides = [
       {
@@ -252,16 +269,16 @@ export default defineComponent({
     ]
     return {
       carouselSlides,
-      isPerson
+      isPerson,
+      naturalPerson,
+      legalPerson,
+      registerPerson
     }
   }
 
 })
 </script>
-<style scoped>
-.carousel {
+<style scoped>.carousel {
   max-height: 100vh;
   height: 100vh;
-}
-
-</style>
+}</style>

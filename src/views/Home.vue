@@ -50,7 +50,7 @@
             Crear categorías
           </Btn>
         </router-link>
-        <router-link :to="{ name: 'Login' }">
+        <router-link :to="{ name: 'Login' }" @click="logout">
           <Btn>
             Cerrar sesión
           </Btn>
@@ -61,18 +61,21 @@
 </template>
 <script lang="ts">
 import Btn from '../components/Btn.vue'
-export default {
+import store from '../store'
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'Home',
   components: {
     Btn
   },
   setup() {
-
+    const logout = () => {
+      store.commit('logout')
+    }
     return {
-
+      logout
     }
   }
-
-}
+})
 </script>
 <style scoped></style>
