@@ -37,9 +37,9 @@
                 placeholder="• • • • • • •" v-model="user.password">
                 <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput" class="w-5 cursor-pointer">
             </div>
-            <div class="flex justify-end mt-2">
-              <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
-            </div>
+            <a href="#" target="_blank" class="hover:underline text-pinkCustom flex justify-end mt-1">
+              <span class=" text-sm">¿Olvido la contraseña?</span>
+            </a>
             <Btn type="submit">
               Acceder
             </Btn>
