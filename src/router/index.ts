@@ -24,7 +24,19 @@ export const routes: Array<RouteRecordRaw> = [
     path: '/backoffice/categories-list',
     name: 'Categories',
     component: () => import('../views/categories/ListCategories.vue')
-  }
+  },
+  {
+    path: '/backoffice/create-category',
+    name: 'CreateCategory',
+    component: () => import('../views/categories/CreateCategory.vue')
+  },
+  {
+    path: '/backoffice/update-category/:id?',
+    name: 'UpdateCategory',
+    component: () => import('../views/categories/CreateCategory.vue'),
+    props: true
+  },
+
 ];
 
 const router = createRouter({

@@ -20,18 +20,17 @@
         <div class="flex justify-between mb-3">
           <p>Tipo de persona</p>
           <div class="flex items-center gap-3">
-            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value=""
+            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="person" name="person"
               class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Natural</label>
           </div>
           <div class="flex items-center gap-3">
-            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" value=""
+            <input id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="legal" name="person"
               class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Jurídica</label>
           </div>
         </div>
-
-        <form v-if="isPerson" class="mt-1">
+        <form v-if="isPerson === 'person'" class="mt-1">
           <div class="mb-3">
             <p>Nombre</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
@@ -93,7 +92,7 @@
           </Btn>
         </form>
 
-        <form v-if="isLegal" class="mt-1">
+        <form v-if="isPerson === 'legal'" class="mt-1">
           <div class="mb-3">
             <p>Razón social</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
@@ -172,30 +171,30 @@
       </div>
     </div>
 
-    <div class="hidden md:block bg-complement">
-      <Carousel :isRegister="true" :navEnabled="false" :pagination="true" :startAutoPlay="false" :timeout="5000"
-        class="carousel relative max-h-full h-full mt-40" v-slot="{ currentSlide }">
-        <Slide v-for="(slide, index) in carouselSlides" :key="index">
-          <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
-            <div class="w-[380px] h-[380px] bg-primary rounded-full mb-40">
-              <img :src="slide.slide" alt="slider" class="w-96 lg:w-[700px]"
-                  :class="currentSlide === 1 && 'pt-20'" />
+    <div class="hidden md:block bg-complement h-auto">
+        <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
+          class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
+          <Slide v-for="(slide, index) in carouselSlides" :key="index">
+            <div v-show="currentSlide === index + 1" class="absolute m-auto left-0 right-0 ">
+              <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
+                <img :src="slide.slide" alt="slider" class="h-[598px] absolute m-auto  left-0 right-0 w-96 pt-10 lg:w-[419px]" />
+              </div>
+              <div class="mx-auto mt-20 z-50 grow">
+                <div class="flex flex-col justify-center items-center">
+                  <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
+                  }}</span></span>
+                  <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
+                </div>
+              </div>
             </div>
-
-            <div class="flex flex-col justify-center" :class="currentSlide !== 1 ? 'mt-44' : 'mt-24'">
-              <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
-              }}</span></span>
-              <p class="text-white text-sm text-center w-[400px]"> {{ slide.description }} </p>
-            </div>
-          </div>
-        </Slide>
-      </Carousel>
-    </div>
+          </Slide>
+        </Carousel>
+      </div>
   </div>
 </template>
 <script lang="ts">
 
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 
@@ -213,8 +212,26 @@ export default defineComponent({
     Btn
   },
   setup() {
-    const isPerson = ref(true)
-    const isLegal = ref(false)
+    const isPerson = ref('person')
+
+    const naturalPerson = reactive({
+      name: '',
+      lastName: '',
+      phone: '',
+      dni: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    })
+
+    const legalPerson = reactive({
+      companyName: '',
+      nit: '',
+      phone: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    })
 
     const carouselSlides = [
       {
@@ -235,8 +252,7 @@ export default defineComponent({
     ]
     return {
       carouselSlides,
-      isPerson,
-      isLegal
+      isPerson
     }
   }
 
@@ -247,4 +263,5 @@ export default defineComponent({
   max-height: 100vh;
   height: 100vh;
 }
+
 </style>

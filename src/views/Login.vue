@@ -75,26 +75,26 @@
       <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
         class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
         <Slide v-for="(slide, index) in carouselSlides" :key="index">
-          <div v-show="currentSlide === index + 1" class="absolute top-10 left-1/4">
-            <div class="w-[380px] h-[380px] bg-primary rounded-full">
-              <img :src="slide.slide" alt="slider" class="w-96 lg:w-[700px]"
-                :class="currentSlide === 1 && 'pt-20'" />
+          <div v-show="currentSlide === index + 1" class="absolute m-auto left-0 right-0 ">
+            <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
+              <img :src="slide.slide" alt="slider" class="h-[598px] absolute m-auto left-0 right-0 w-96 pt-10 lg:w-[419px]" />
             </div>
-
-            <div class="flex flex-col justify-center" :class="currentSlide !== 1 ? 'mt-44'  : 'mt-24'">
-              <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
-              }}</span></span>
-              <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
+            <div class="mx-auto mt-20 z-50">
+              <div class="flex flex-col justify-center items-center">
+                <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
+                }}</span></span>
+                <p class="text-white text-sm text-center w-[400px] mt-2"> {{ slide.description }} </p>
+              </div>
             </div>
           </div>
+
         </Slide>
       </Carousel>
     </div>
   </div>
 </template>
-<script>
-
-import { defineComponent } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 
@@ -112,6 +112,43 @@ export default defineComponent({
     Btn
   },
   setup() {
+    function getViewPortHeight() {
+      var viewportheight;
+      if (typeof window.innerWidth != 'undefined') {
+        viewportheight = window.innerHeight;
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+      } else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+        viewportheight = document.documentElement.clientHeight;
+      } else {
+        viewportheight = document.getElementsByTagName('body')[0].clientHeight;
+      }
+      return viewportheight;
+
+    }
+    function getViewPortWidth() {
+      var viewportwidth;
+      // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+      if (typeof window.innerWidth != 'undefined') {
+        viewportwidth = window.innerWidth;
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+      } else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+        viewportwidth = document.documentElement.clientWidth;
+        // older versions of IE
+      } else {
+        viewportwidth = document.getElementsByTagName('body')[0].clientWidth;
+      }
+      return viewportwidth;
+    }
+
+    const width = ref(getViewPortWidth())
+    const h = ref(getViewPortHeight())
+
+    onMounted(() => {
+      console.log(width.value);
+      console.log(h.value);
+
+    })
+
     const carouselSlides = [
       {
         title: 'Yabu',
