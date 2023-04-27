@@ -23,9 +23,9 @@
             <p>Email</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Email" v-model="user.email">
+                placeholder="usuario@" v-model="user.email">
             </div>
-            <div class="flex justify-end mt-1">
+            <div v-if="!user.email.length" class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Email Inválido</span>
             </div>
           </div>
@@ -33,11 +33,9 @@
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña" v-model="user.password">
-              <button>
-                <img src="../assets/login/ojito.svg" alt="">
-              </button>
+              <input required :type="inputType" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="• • • • • • •" v-model="user.password">
+                <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput" class="w-5 cursor-pointer">
             </div>
             <div class="flex justify-end mt-2">
               <span class="text-pinkCustom text-sm">¿Olvido la contraseña?</span>
@@ -94,7 +92,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, onMounted, computed } from 'vue'
+import { defineComponent, reactive, onMounted, computed, ref } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 
@@ -116,8 +114,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
-
     const isLogued = computed(() => store.state.isLogued)
+
+    const inputType = ref('password')
+    const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
 
     const user = reactive<User>({
       email: '',
@@ -154,7 +154,9 @@ export default defineComponent({
     return {
       carouselSlides,
       user,
-      login
+      login,
+      inputType,
+      toggleInput
     }
   }
 

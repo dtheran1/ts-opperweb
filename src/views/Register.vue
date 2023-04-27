@@ -20,13 +20,13 @@
         <div class="flex justify-between mb-3">
           <p>Tipo de persona</p>
           <div class="flex items-center gap-3">
-            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="person"
-              name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson"
+              value="person" name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Natural</label>
           </div>
           <div class="flex items-center gap-3">
-            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson" value="legal"
-              name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
+            <input required id="helper-radio" aria-describedby="helper-radio-text" type="radio" v-model="isPerson"
+              value="legal" name="person" class="w-4 h-4 text-gray-500 bg-gray-100 border-gray-300 focus:ring-gray-500 ">
             <label for="helper-radio" class="font-medium">Jurídica</label>
           </div>
         </div>
@@ -73,22 +73,24 @@
             <p>Contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña" v-model="naturalPerson.password">
-              <button>
-                <img src="../assets/login/ojito.svg" alt="">
-              </button>
+              <input required :type="inputType" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="• • • • • • •" v-model="naturalPerson.password">
+              <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput"
+                class="w-5 cursor-pointer">
             </div>
           </div>
           <div class="mb-4">
             <p>Confirmar contraseña</p>
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
-              <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña" v-model="naturalPerson.confirmPassword">
-              <button>
-                <img src="../assets/login/ojito.svg" alt="">
-              </button>
+              <input required :type="inputType" class="h-full bg-transparent placeholder-white focus:outline-none"
+                placeholder="• • • • • • •" v-model="naturalPerson.confirmPassword">
+              <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput"
+                class="w-5 cursor-pointer">
+            </div>
+            <div v-if="naturalPerson.password !== naturalPerson.confirmPassword && naturalPerson.confirmPassword.length"
+              class="flex justify-end mt-1">
+              <span class="text-redCustom text-sm">Las contraseñas no coinden</span>
             </div>
           </div>
           <Btn>
@@ -149,6 +151,10 @@
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
             </div>
+            <div v-if="legalPerson.password !== legalPerson.confirmPassword && legalPerson.confirmPassword.length"
+              class="flex justify-end mt-1">
+              <span class="text-redCustom text-sm">Las contraseñas no coinden</span>
+            </div>
           </div>
           <Btn>
             Registrar
@@ -180,7 +186,7 @@
 
     <div class="hidden md:block bg-complement h-auto">
       <Carousel :navEnabled="false" :pagination="true" :startAutoPlay="true" :timeout="5000"
-        class="carousel relative max-h-full h-full" v-slot="{ currentSlide }">
+        class="relative max-h-full h-full" v-slot="{ currentSlide }">
         <Slide v-for="(slide, index) in carouselSlides" :key="index">
           <div v-show="currentSlide === index + 1" class="absolute m-auto left-0 right-0 ">
             <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
@@ -222,6 +228,8 @@ export default defineComponent({
   },
   setup() {
     const isPerson = ref('person')
+    const inputType = ref('password')
+    const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
 
     const naturalPerson = reactive<Person>({
       name: '',
@@ -243,7 +251,7 @@ export default defineComponent({
     })
 
     const registerPerson = () => {
-      if (isPerson.value === 'person' ) {
+      if (isPerson.value === 'person') {
         console.log(naturalPerson);
       } else {
         console.log(legalPerson);
@@ -272,13 +280,12 @@ export default defineComponent({
       isPerson,
       naturalPerson,
       legalPerson,
-      registerPerson
+      registerPerson,
+      inputType,
+      toggleInput
     }
   }
 
 })
 </script>
-<style scoped>.carousel {
-  max-height: 100vh;
-  height: 100vh;
-}</style>
+<style scoped></style>
