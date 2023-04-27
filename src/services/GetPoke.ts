@@ -1,5 +1,5 @@
-import { Api } from './index'
+import { Axios } from './index'
 
 export const getPokes = () => {
-  return Api().get('/')
+  return Axios().get('/')
 }

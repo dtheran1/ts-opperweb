@@ -21,6 +21,8 @@
         Cerrar sesión
       </Btn>
     </router-link>
+
+    <button @click="$swal('Hello Vue world!!!')">Hello world</button>
   </div>
 </template>
 <script lang="ts">
@@ -40,16 +42,9 @@ export default defineComponent({
     const logout = () => {
       store.commit('logout')
     }
-
-    const getPokemons = () => {
-      getPokes()
-        .then((res) => {
-          console.log(res.data.results)
-        })
-    }
-
+    
     onMounted(() => {
-      getPokemons()
+      // getPokemons()
     })
 
     const seeCategories = () => {

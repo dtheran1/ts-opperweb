@@ -1,16 +1,33 @@
-export interface Person {
-  name: string,
-  lastName: string,
-  phone: number | null,
-  dni: number | null,
+export interface LegalPerson {
+  telephone: string,
+  razon_social: string,
+  type_user_id: number,
+  verify_tc: string,
   email: string,
   password: string,
-  confirmPassword: string
+  password_confirmation: string,
+  apiKey: string,
+  NIT: string
+  utcTimeStamp: string
+  signature: string
 }
 
-export interface Legal extends Omit<Person, 'name' | 'lastName' | 'dni'> {
-  companyName: string;
-  nit: number | null;
+export interface responseLegalPerson {
+  user: {
+    telephone: string,
+    NIT: string,
+    razon_social: string,
+    type_user_id: number,
+    verify_tc: boolean,
+    email: string,
+    password: string,
+    password_confirmation: string
+    updated_at: string;
+    created_at: string;
+    id: number;
+    profile_photo_url: string;
+  },
+  token: string
 }
 
 export interface Natural {
@@ -28,7 +45,7 @@ export interface Natural {
   signature: string
 }
 
-export interface responseTestNatural extends Omit<Natural, 'name' | 'lastName' | 'telephone' | 'identy_document' | 'type_user_id'| 'email'>{
+export interface responseNatural extends Omit<Natural, 'name' | 'lastName' | 'telephone' | 'identy_document' | 'type_user_id'| 'email'>{
   user: {
     updated_at: string;
     created_at: string;

@@ -42,21 +42,21 @@
             <p>Apellido</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="naturalPerson.lastName">
+                v-model="naturalPerson.lastname">
             </div>
           </div>
           <div class="mb-3">
             <p>Teléfono</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="naturalPerson.phone">
+                v-model="naturalPerson.telephone">
             </div>
           </div>
           <div class="mb-3">
             <p>Número de identificación</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="naturalPerson.dni">
+                v-model="naturalPerson.identy_document">
             </div>
           </div>
           <div class="mb-3">
@@ -84,11 +84,12 @@
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
               <input required :type="inputType" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="• • • • • • •" v-model="naturalPerson.confirmPassword">
+                placeholder="• • • • • • •" v-model="naturalPerson.password_confirmation">
               <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput"
                 class="w-5 cursor-pointer">
             </div>
-            <div v-if="naturalPerson.password !== naturalPerson.confirmPassword && naturalPerson.confirmPassword.length"
+            <div
+              v-if="naturalPerson.password !== naturalPerson.password_confirmation && naturalPerson.password_confirmation.length"
               class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Las contraseñas no coinden</span>
             </div>
@@ -208,16 +209,19 @@
 </template>
 <script lang="ts">
 
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref, reactive, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
+import { getTimezone } from '../services/getTimeZone'
+import { RegisterUser } from '../services/Register'
+import { getPokes } from '../services/GetPoke'
 
 import slade1 from '../assets/login/slider1.png'
 import slade2 from '../assets/login/slider2.png'
 import slade3 from '../assets/login/slider3.png'
 
 import Btn from '../components/Btn.vue'
-import { Legal, Person } from '../model/user'
+import { LegalPerson, Natural } from '../model/user'
 
 export default defineComponent({
   name: 'login',
@@ -231,32 +235,68 @@ export default defineComponent({
     const inputType = ref('password')
     const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
 
-    const naturalPerson = reactive<Person>({
+    const naturalPerson = reactive<Natural>({
       name: '',
-      lastName: '',
-      phone: null,
-      dni: null,
-      email: '',
+      lastname: '',
+      telephone: '',
+      identy_document: '',
+      type_user_id: '2',
+      verify_tc: '1',
       password: '',
-      confirmPassword: ''
+      password_confirmation: '',
+      email: '',
+      apiKey: '',
+      utcTimeStamp: '',
+      signature: '',
     })
 
-    const legalPerson = reactive<Legal>({
-      companyName: '',
-      nit: null,
-      phone: null,
+    const legalPerson = reactive<LegalPerson>({
+      telephone: '',
+      razon_social: '',
+      type_user_id: 1,
+      verify_tc: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      password_confirmation: '',
+      apiKey: '',
+      NIT: '',
+      utcTimeStamp: '',
+      signature: ''
     })
 
     const registerPerson = () => {
       if (isPerson.value === 'person') {
-        console.log(naturalPerson);
+        // getTimeZ()
+        // console.log(naturalPerson)
+        RegisterUser(naturalPerson)
+          .then((res: any) => {
+            console.log(res)
+          })
       } else {
         console.log(legalPerson);
       }
     }
+
+    const getTimeZ = () => {
+      getTimezone()
+        .then((res: any) => {
+          naturalPerson.utcTimeStamp = res.timezone
+          console.log(res.timezone)
+        })
+    }
+
+
+    const foo = () => {
+      getPokes()
+        .then((res: any) => {
+          console.log(res)
+        })
+    }
+
+    onMounted(() => {
+      getTimeZ()
+      // foo()
+    })
 
     const carouselSlides = [
       {

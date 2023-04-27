@@ -1,6 +1,6 @@
 import { User } from '../model/user'
-import { Api } from './index'
+import { Axios } from './index'
 
-export const LoginUser = (user: User) => {
-  return Api().post('/', user)
-}
+// export const LoginUser = (user: User) => {
+//   return Axios().post('/', user)
+// }
