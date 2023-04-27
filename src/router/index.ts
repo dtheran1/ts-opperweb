@@ -3,7 +3,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: () => import('../views/Login.vue'),
     meta: { noAuth: true }

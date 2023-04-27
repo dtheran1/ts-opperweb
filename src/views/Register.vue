@@ -179,7 +179,7 @@
               <div class="w-[550px] h-[550px] mt-20 m-auto left-0 right-0 z-10 bg-primary rounded-full">
                 <img :src="slide.slide" alt="slider" class="h-[598px] absolute m-auto  left-0 right-0 w-96 pt-10 lg:w-[419px]" />
               </div>
-              <div class="mx-auto mt-20 z-50 grow">
+              <div class="mx-auto mt-20 z-50">
                 <div class="flex flex-col justify-center items-center">
                   <span class="font-bold text-6xl text-white text-center"> anime<span class="text-primary">{{ slide.title
                   }}</span></span>
