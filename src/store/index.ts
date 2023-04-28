@@ -1,6 +1,4 @@
 import { createStore } from 'vuex'
-import { useRouter } from 'vue-router'
-const router = useRouter()
 const store = createStore({
   modules: {
   },
@@ -56,7 +54,9 @@ const store = createStore({
         utcTimeStamp: '',
         signature: '',
       }
-      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      localStorage.removeItem('categories')
+      state.isLogued = false
     },
     initializeStore (state) {
       const user = JSON.parse(localStorage.getItem('user'))

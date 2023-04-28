@@ -85,7 +85,6 @@
               </div>
             </div>
           </div>
-
         </Slide>
       </Carousel>
     </div>
