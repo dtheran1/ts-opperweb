@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import Btn from '../../components/Btn.vue'
 import router from '../../router/index'
 import { useStore } from 'vuex';

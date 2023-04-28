@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 import Btn from '../../components/Btn.vue'
-import { defineComponent, onMounted, ref, computed, watchEffect } from 'vue'
+import { defineComponent, ref, computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import Swal from 'sweetalert2/dist/sweetalert2.js'

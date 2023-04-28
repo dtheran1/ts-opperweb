@@ -27,14 +27,12 @@
 import Btn from '../components/Btn.vue'
 import store from '../store'
 import { defineComponent, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Home',
   components: {
     Btn
   },
   setup() {
-    const router = useRouter()
     const logout = () => {
       store.commit('logout')
     }
