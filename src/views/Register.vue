@@ -179,7 +179,7 @@
         </div>
 
         <div class="mt-[41px] mb-10 flex justify-center">
-          <router-link :to="{ name: 'Home' }">
+          <router-link :to="{ name: 'Login' }">
             <span class="text-sm text-white">Ya estás registrado? <span class="text-pinkCustom">Acceder</span></span>
           </router-link>
         </div>
@@ -214,15 +214,12 @@ import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 import { getTimezone } from '../services/getTimeZone'
 import { registerUser } from '../services/Register'
-import { getPokes } from '../services/GetPoke'
-
-import slade1 from '../assets/login/slider1.png'
-import slade2 from '../assets/login/slider2.png'
-import slade3 from '../assets/login/slider3.png'
+import { carouselSlides }  from '../util/index'
 
 import Btn from '../components/Btn.vue'
 import { LegalPerson, Natural } from '../model/user'
 import moment from 'moment-timezone'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default defineComponent({
   name: 'login',
@@ -265,49 +262,45 @@ export default defineComponent({
       signature: ''
     })
 
-    let timeZone = '';
-    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    // const date = moment().tz(timeZone).format("Y-m-d\TH:m:s\Z");
-    // console.log(date);
-
     const PUBLIC_KEY = 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g'
     const PRIVATE_KEY = "DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR";
-    // const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${naturalPerson.utcTimeStamp}`
 
-    function getAsiginature(data: string) {
+    const getAsiginature = (data: string) => {
       const hash = CryptoJS.SHA256(data);
       return hash.toString(CryptoJS.enc.Hex);
     }
 
-    // const hash = getAsiginature(dataAsignature);
-    // console.log(hash);
-
     const registerPerson = () => {
       if (isPerson.value === 'person') {
-        const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${timeZone}`
         naturalPerson.identy_document = naturalPerson.identy_document.toString()
         naturalPerson.telephone = naturalPerson.telephone.toString()
-        // naturalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
-        // naturalPerson.utcTimeStamp = timeZone
-        naturalPerson.signature = getAsiginature(dataAsignature)
-        // console.log(naturalPerson);
         getTimezone()
           .then((res) => {
-            console.log('getTimeeeee');
-
-            timeZone = res.timezone
             naturalPerson.utcTimeStamp = res.timezone
-            console.log(naturalPerson);
+            const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${res.timezone}`
+            naturalPerson.signature = getAsiginature(dataAsignature)
+            registerUser(naturalPerson)
+              .then((res: any) => {
+                console.log('register');
+                console.log(res)
+              })
+              .catch(() => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Algo salió mal! Por favor intentalo nuevamente 🈲'
+                })
+              })
+          }).catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
+            })
           })
-        registerUser(naturalPerson)
-          .then((res: any) => {
-            console.log('register');
-
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+        // naturalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
+        console.log(naturalPerson);
+        console.log(1111111);
       } else {
         legalPerson.NIT = legalPerson.NIT.toString()
         legalPerson.telephone = legalPerson.telephone.toString()
@@ -316,36 +309,18 @@ export default defineComponent({
       }
     }
 
-    const getTimeZ = () => {
-      getTimezone()
-        .then((res) => {
-          timeZone = res.timezone
-          // naturalPerson.utcTimeStamp = res.timezone
-          // console.log(res.timezone)
-        })
-    }
+    // const getTimeZ = () => {
+    //   getTimezone()
+    //     .then((res) => {
+    //       naturalPerson.utcTimeStamp = res.timezone
+    //       naturalPerson.signature = getAsiginature(dataAsignature)
+    //     })
+    // }
 
     onMounted(() => {
       // getTimeZ()
     })
 
-    const carouselSlides = [
-      {
-        title: 'Yabu',
-        slide: slade1,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-      {
-        title: 'Kyojuro',
-        slide: slade2,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-      {
-        title: 'Inosuke',
-        slide: slade3,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-    ]
     return {
       carouselSlides,
       isPerson,

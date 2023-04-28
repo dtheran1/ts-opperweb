@@ -24,10 +24,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import { Category } from '../../model/user';
-
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-import swal from 'vue-sweetalert2';
 export default defineComponent({
   name: 'Home',
   components: {

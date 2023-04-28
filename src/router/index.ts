@@ -1,4 +1,5 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import store from '../store';
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -10,13 +11,11 @@ export const routes: Array<RouteRecordRaw> = [
         path: '',
         name: 'Home',
         component: () => import('../views/Home.vue'),
-        meta: { noAuth: false }
       },
       {
         path: 'categories-list',
         name: 'Categories',
         component: () => import('../views/categories/ListCategories.vue'),
-        meta: { noAuth: false }
       },
       {
         path: '/backoffice/create-category',
@@ -50,10 +49,18 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-  
-//   if(from.name === 'Login') return
-// })
+router.beforeEach((to, from, next) => {
+  const userAuth = store.state.user
+  if(!to.meta?.noAuth) {
+    if(!userAuth.email.length) {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 
 export default router

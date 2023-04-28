@@ -95,10 +95,7 @@
 import { defineComponent, reactive, onMounted, computed, ref } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
-
-import slade1 from '../assets/login/slider1.png'
-import slade2 from '../assets/login/slider2.png'
-import slade3 from '../assets/login/slider3.png'
+import { carouselSlides } from '../util/index'
 
 import Btn from '../components/Btn.vue'
 import { User } from '../model/user'
@@ -134,23 +131,6 @@ export default defineComponent({
       isLogued.value && router.push('/backoffice')
     })
 
-    const carouselSlides = [
-      {
-        title: 'Yabu',
-        slide: slade1,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-      {
-        title: 'Kyojuro',
-        slide: slade2,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-      {
-        title: 'Inosuke',
-        slide: slade3,
-        description: 'Ver anime en línea en HD, subtitulado o doblado, en tu celular o computadora.¡Animeyabu, tu portal de anime en línea!'
-      },
-    ]
     return {
       carouselSlides,
       user,
