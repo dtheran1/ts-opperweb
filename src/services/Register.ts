@@ -4,7 +4,3 @@ export const registerUser = async (person: LegalPerson | Natural): Promise<Respo
   const res = await Axios().post('register', person)
   return res.data
 }
-
-
-
-

@@ -98,7 +98,7 @@ import Slide from '../components/SliderComponent.vue'
 import { carouselSlides } from '../util/index'
 
 import Btn from '../components/Btn.vue'
-import { User } from '../model/user'
+import { UserLogin } from '../model/user'
 import { useStore } from 'vuex'
 import router from '../router/index'
 
@@ -116,9 +116,12 @@ export default defineComponent({
     const inputType = ref('password')
     const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
 
-    const user = reactive<User>({
+    const user = reactive<UserLogin>({
       email: '',
-      password: ''
+      password: '',
+      apiKey: '',
+      utcTimeStamp: '',
+      signature: '',
     })
 
     const login = () => {

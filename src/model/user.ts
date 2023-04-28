@@ -63,11 +63,11 @@ export interface UserLogin {
   signature: string;
 }
 
-export interface ResponseUserLogin {
+export interface ResponseToken {
   token: string
 }
 
-export interface GetUser {
+export interface GetDataAuth {
   apiKey: string;
   utcTimeStamp: string;
   signature: string;
@@ -75,24 +75,9 @@ export interface GetUser {
 
 export interface ResponseGetUser {
   name: string;
-  // id: number;
-  // lastname: string;
-  // telephone: string;
-  // identy_document: string;
-  // NIT: null;
-  // razon_social: null;
-  // email: string;
-  // email_verified_at: null;
-  // type_user_id: number;
-  // verify_tc: boolean;
-  // current_team_id: null;
-  // profile_photo_path: null;
-  // created_at: string;
-  // updated_at: string;
-  // profile_photo_url: string;
 }
 
-export interface getCategories extends GetUser {}
+export interface getCategories extends GetDataAuth {}
 
 export interface Category {
   id: number;
@@ -121,9 +106,4 @@ export interface UpdateCategory {
   apiKey: string;
   utcTimeStamp: string;
   signature: string;
-}
-
-export interface User {
-  email: string,
-  password: string
 }

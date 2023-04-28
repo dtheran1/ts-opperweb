@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, computed } from 'vue'
 import Btn from '../../components/Btn.vue'
 import router from '../../router/index'
 import { useStore } from 'vuex';
@@ -29,7 +29,7 @@ interface Category {
 export default defineComponent({
   name: 'Home',
   components: {
-    Btn
+    Btn,
   },
   setup() {
     const store = useStore()
@@ -37,40 +37,7 @@ export default defineComponent({
       store.commit('logout')
     }
 
-    const categories = ref<Category[]>([
-      {
-        id: 1,
-        name: 'ACCIÓN'
-      },
-      {
-        id: 2,
-        name: 'AVENTURA'
-      },
-      {
-        id: 3,
-        name: 'COMEDIA'
-      },
-      {
-        id: 4,
-        name: 'TERROR'
-      },
-      {
-        id: 5,
-        name: 'ROMANCE'
-      },
-      {
-        id: 6,
-        name: 'MISTERIO'
-      },
-      {
-        id: 6,
-        name: 'MISTERIO'
-      },
-      {
-        id: 6,
-        name: 'MISTERIO'
-      },
-    ])
+    const categories = computed(() => store.state.categories)
 
     const updateCategory = (category: Category) => {
       router.push({

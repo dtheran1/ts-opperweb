@@ -7,7 +7,7 @@
     <div class="mt-10 font-normal text-sm">
       <p class="font-medium">Nombre de categoría</p>
       <div class="mt-1 rounded-lg h-14 border-2 border-white w-80 bg-grayCustom text-white placeholder-white">
-        <input type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
+        <input type="text" v-model="nameCategory" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none">
       </div>
     </div>
 
@@ -20,11 +20,12 @@
 </template>
 <script lang="ts">
 import Btn from '../../components/Btn.vue'
-import { defineComponent, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router';
+import { defineComponent, onMounted, ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { Category } from '../../model/user';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 export default defineComponent({
   name: 'Home',
   components: {
@@ -33,8 +34,12 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const route = useRoute();
+    const router = useRouter();
     const title = ref('')
     const isUpdate = ref(false)
+    const nameCategory = ref('')
+
+    const categories = computed(() => store.state.categories)
 
     onMounted(() => {
       if (route.params.id) {
@@ -48,6 +53,10 @@ export default defineComponent({
 
     const saveCategory = () => {
       if (isUpdate.value) {
+        store.dispatch('updateCategory', {
+          id: Number(route.params.id),
+          name: nameCategory.value
+        })
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -55,7 +64,12 @@ export default defineComponent({
           showConfirmButton: false,
           timer: 1500
         })
+        router.push({ name: 'Categories' })
       } else {
+        store.dispatch('createCategory', {
+          name: nameCategory.value,
+          id: categories.value.length + 1
+        })
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -63,16 +77,16 @@ export default defineComponent({
           showConfirmButton: false,
           timer: 1500
         })
+        router.push({ name: 'Categories' })
       }
     }
 
-
-
     return {
       route,
+      nameCategory,
       title,
       isUpdate,
-      saveCategory
+      saveCategory,
     }
   }
 
