@@ -70,7 +70,7 @@ export default defineComponent({
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Actualizado',
+          title: 'Categoría actualizada',
           showConfirmButton: false,
           timer: 1500
         })
@@ -83,7 +83,7 @@ export default defineComponent({
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Creado',
+          title: 'Categoría creada',
           showConfirmButton: false,
           timer: 1500
         })
