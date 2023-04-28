@@ -278,7 +278,7 @@ export default defineComponent({
       } else {
         legalPerson.NIT = legalPerson.NIT.toString()
         legalPerson.telephone = legalPerson.telephone.toString()
-        regUser(naturalPerson)
+        regUser(legalPerson)
       }
     }
 
