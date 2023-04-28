@@ -12,7 +12,7 @@
     </div>
 
     <div class="mt-14">
-      <Btn>
+      <Btn @click="saveCategory">
         <span> {{ isUpdate ? 'Actualizar' : 'Crear' }} </span>
       </Btn>
     </div>
@@ -23,6 +23,11 @@ import Btn from '../../components/Btn.vue'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import { Category } from '../../model/user';
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+import swal from 'vue-sweetalert2';
 export default defineComponent({
   name: 'Home',
   components: {
@@ -44,10 +49,33 @@ export default defineComponent({
       }
     })
 
+    const saveCategory = () => {
+      if (isUpdate.value) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Actualizado',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Creado',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    }
+
+
+
     return {
       route,
       title,
       isUpdate,
+      saveCategory
     }
   }
 
