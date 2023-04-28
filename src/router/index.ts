@@ -49,7 +49,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const userAuth = store.state.user
   if(!to.meta?.noAuth) {
     if(!userAuth.email.length) {

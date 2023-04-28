@@ -3,11 +3,11 @@
     <span>Hola, <span class="font-medium">Daniel Theran</span></span>
   </div>
 
-  <div class="mt-20">
+  <div class="mt-20 w-80">
     <span class="font-medium text-lg">Selecciona una opción:</span>
 
     <router-link :to="{ name: 'Categories' }">
-      <Btn>
+      <Btn class="">
         Ver todas las categorías
       </Btn>
     </router-link>
