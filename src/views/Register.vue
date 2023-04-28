@@ -152,7 +152,8 @@
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
             </div>
-            <div v-if="legalPerson.password !== legalPerson.password_confirmation && legalPerson.password_confirmation.length"
+            <div
+              v-if="legalPerson.password !== legalPerson.password_confirmation && legalPerson.password_confirmation.length"
               class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Las contraseñas no coinden</span>
             </div>
@@ -208,12 +209,11 @@
   </div>
 </template>
 <script lang="ts">
-
 import { defineComponent, ref, reactive, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
 import { getTimezone } from '../services/getTimeZone'
-import { RegisterUser } from '../services/Register'
+import { registerUser } from '../services/Register'
 import { getPokes } from '../services/GetPoke'
 
 import slade1 from '../assets/login/slider1.png'
@@ -232,7 +232,6 @@ export default defineComponent({
     Btn
   },
   setup() {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const isPerson = ref('person')
     const inputType = ref('password')
     const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
@@ -260,28 +259,59 @@ export default defineComponent({
       email: '',
       password: '',
       password_confirmation: '',
-      apiKey: '',
+      apiKey: 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g',
       NIT: '',
       utcTimeStamp: '',
       signature: ''
     })
 
+    let timeZone = '';
+    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // const date = moment().tz(timeZone).format("Y-m-d\TH:m:s\Z");
+    // console.log(date);
+
+    const PUBLIC_KEY = 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g'
+    const PRIVATE_KEY = "DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR";
+    // const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${naturalPerson.utcTimeStamp}`
+
+    function getAsiginature(data: string) {
+      const hash = CryptoJS.SHA256(data);
+      return hash.toString(CryptoJS.enc.Hex);
+    }
+
+    // const hash = getAsiginature(dataAsignature);
+    // console.log(hash);
+
     const registerPerson = () => {
       if (isPerson.value === 'person') {
+        const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${timeZone}`
         naturalPerson.identy_document = naturalPerson.identy_document.toString()
         naturalPerson.telephone = naturalPerson.telephone.toString()
-        naturalPerson.utcTimeStamp = moment().tz(timezone).format('Y-m-d\TH:m:s\Z')
-        // naturalPerson.signature = `DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR6,VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g,${moment().tz(timezone).format('Y-m-d\TH:m:s\Z')}`
-        console.log(naturalPerson);
+        // naturalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
+        // naturalPerson.utcTimeStamp = timeZone
+        naturalPerson.signature = getAsiginature(dataAsignature)
+        // console.log(naturalPerson);
+        getTimezone()
+          .then((res) => {
+            console.log('getTimeeeee');
 
-        // RegisterUser(naturalPerson)
-        //   .then((res: any) => {
-        //     console.log(res)
-        //   })
+            timeZone = res.timezone
+            naturalPerson.utcTimeStamp = res.timezone
+            console.log(naturalPerson);
+          })
+        registerUser(naturalPerson)
+          .then((res: any) => {
+            console.log('register');
+
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       } else {
         legalPerson.NIT = legalPerson.NIT.toString()
         legalPerson.telephone = legalPerson.telephone.toString()
-        legalPerson.utcTimeStamp = moment().tz(timezone).format('Y-m-d\TH:m:s\Z')
+        legalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
         console.log(legalPerson);
       }
     }
@@ -289,21 +319,14 @@ export default defineComponent({
     const getTimeZ = () => {
       getTimezone()
         .then((res) => {
+          timeZone = res.timezone
           // naturalPerson.utcTimeStamp = res.timezone
-          console.log(res.timezone)
-        })
-    }
-
-    const foo = () => {
-      getPokes()
-        .then((res: any) => {
-          console.log(res)
+          // console.log(res.timezone)
         })
     }
 
     onMounted(() => {
-      getTimeZ()
-      // foo()
+      // getTimeZ()
     })
 
     const carouselSlides = [
