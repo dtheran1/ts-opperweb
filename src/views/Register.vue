@@ -210,15 +210,14 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted } from 'vue'
+import { carouselSlides } from '../util/index'
 import Carousel from '../components/Carousel.vue'
 import Slide from '../components/SliderComponent.vue'
+import Btn from '../components/Btn.vue'
 import { getTimezone } from '../services/getTimeZone'
 import { registerUser } from '../services/Register'
-import { carouselSlides }  from '../util/index'
 
-import Btn from '../components/Btn.vue'
 import { LegalPerson, Natural } from '../model/user'
-import moment from 'moment-timezone'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default defineComponent({
@@ -264,6 +263,7 @@ export default defineComponent({
 
     const PUBLIC_KEY = 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g'
     const PRIVATE_KEY = "DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR";
+    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const getAsiginature = (data: string) => {
       const hash = CryptoJS.SHA256(data);
@@ -274,51 +274,47 @@ export default defineComponent({
       if (isPerson.value === 'person') {
         naturalPerson.identy_document = naturalPerson.identy_document.toString()
         naturalPerson.telephone = naturalPerson.telephone.toString()
-        getTimezone()
-          .then((res) => {
-            naturalPerson.utcTimeStamp = res.timezone
-            const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${res.timezone}`
-            naturalPerson.signature = getAsiginature(dataAsignature)
-            registerUser(naturalPerson)
-              .then((res: any) => {
-                console.log('register');
-                console.log(res)
-              })
-              .catch(() => {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Algo salió mal! Por favor intentalo nuevamente 🈲'
-                })
-              })
-          }).catch(() => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!'
-            })
-          })
-        // naturalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
-        console.log(naturalPerson);
-        console.log(1111111);
+        regUser(naturalPerson)
       } else {
         legalPerson.NIT = legalPerson.NIT.toString()
         legalPerson.telephone = legalPerson.telephone.toString()
-        legalPerson.utcTimeStamp = moment().tz(timeZone).format('Y-m-d\TH:m:s\Z')
-        console.log(legalPerson);
+        regUser(naturalPerson)
       }
     }
 
-    // const getTimeZ = () => {
-    //   getTimezone()
-    //     .then((res) => {
-    //       naturalPerson.utcTimeStamp = res.timezone
-    //       naturalPerson.signature = getAsiginature(dataAsignature)
-    //     })
-    // }
+    const getTimeZ = () => {
+      getTimezone()
+        .then((res) => {
+          const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${res.timezone}`
+          naturalPerson.utcTimeStamp = res.timezone
+          legalPerson.utcTimeStamp = res.timezone
+          naturalPerson.signature = getAsiginature(dataAsignature)
+          legalPerson.signature = getAsiginature(dataAsignature)
+        }).catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+          })
+        })
+    }
+
+    const regUser = (person: Natural | LegalPerson) => {
+      registerUser(person)
+        .then((res) => {
+          console.log(res.token)
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salió mal! Por favor intentalo nuevamente 🈲'
+          })
+        })
+    }
 
     onMounted(() => {
-      // getTimeZ()
+      getTimeZ()
     })
 
     return {
