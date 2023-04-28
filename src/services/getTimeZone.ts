@@ -1,5 +1,8 @@
-import axios from 'axios'
-export const getTimezone = () => {
-  return axios.get('https://front.opperdev.com/api/timezone')
+import { Axios } from './index'
+interface  TimeZone {
+  timezone: string
+}
+export const getTimezone = async (): Promise<TimeZone> => {
+  return await Axios().get('timezone')
     .then(res => res.data)
 }

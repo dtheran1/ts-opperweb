@@ -12,7 +12,7 @@ export interface LegalPerson {
   signature: string
 }
 
-export interface responseLegalPerson {
+export interface ResponseLegalPerson {
   user: {
     telephone: string,
     NIT: string,
@@ -45,7 +45,7 @@ export interface Natural {
   signature: string
 }
 
-export interface responseNatural extends Omit<Natural, 'name' | 'lastName' | 'telephone' | 'identy_document' | 'type_user_id'| 'email'>{
+export interface ResponseNatural extends Omit<Natural, 'name' | 'lastName' | 'telephone' | 'identy_document' | 'type_user_id'| 'email'>{
   user: {
     updated_at: string;
     created_at: string;
@@ -55,7 +55,7 @@ export interface responseNatural extends Omit<Natural, 'name' | 'lastName' | 'te
   token: string
 }
 
-export interface userLogin {
+export interface UserLogin {
   email: string
   password: string;
   apiKey: string;
@@ -63,17 +63,17 @@ export interface userLogin {
   signature: string;
 }
 
-export interface responseUserLogin {
+export interface ResponseUserLogin {
   token: string
 }
 
-export interface getUser {
+export interface GetUser {
   apiKey: string;
   utcTimeStamp: string;
   signature: string;
 }
 
-export interface responseGetUser {
+export interface ResponseGetUser {
   name: string;
   // id: number;
   // lastname: string;
@@ -92,7 +92,7 @@ export interface responseGetUser {
   // profile_photo_url: string;
 }
 
-export interface getCategories extends getUser {}
+export interface getCategories extends GetUser {}
 
 export interface Category {
   id: number;
@@ -101,7 +101,7 @@ export interface Category {
   updated_at: string;
 }
 
-export interface responseCategories {
+export interface ResponseCategories {
   categorias: Category[]
 }
 
@@ -112,7 +112,7 @@ export interface CreateCategory {
   signature: string;
 }
 
-export interface responseCreateCategory {
+export interface ResponseCreateCategory {
   categoria: Category
 }
 

@@ -1,7 +1,7 @@
-import axios from 'axios'
-const url = 'https://front.opperdev.com/api/register'
-export const RegisterUser = (person: any) => {
-  return axios.post(url, person)
+import { LegalPerson, Natural, ResponseLegalPerson, ResponseNatural } from '../model/user'
+import { Axios } from './index'
+export const RegisterUser = async (person: LegalPerson | Natural): Promise<ResponseLegalPerson | ResponseNatural> => {
+  return await Axios().post('register', person)
 }
 
 

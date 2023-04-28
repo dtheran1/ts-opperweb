@@ -104,21 +104,21 @@
             <p>Razón social</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="text" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="legalPerson.companyName">
+                v-model="legalPerson.razon_social">
             </div>
           </div>
           <div class="mb-3">
             <p>NIT</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="legalPerson.nit">
+                v-model="legalPerson.NIT">
             </div>
           </div>
           <div class="mb-3">
             <p>Teléfono</p>
             <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="number" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
-                v-model="legalPerson.phone">
+                v-model="legalPerson.telephone">
             </div>
           </div>
           <div class="mb-3">
@@ -147,12 +147,12 @@
             <div
               class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
               <input required type="password" class="h-full bg-transparent placeholder-white focus:outline-none"
-                placeholder="Contraseña" v-model="legalPerson.confirmPassword">
+                placeholder="Contraseña" v-model="legalPerson.password_confirmation">
               <button>
                 <img src="../assets/login/ojito.svg" alt="">
               </button>
             </div>
-            <div v-if="legalPerson.password !== legalPerson.confirmPassword && legalPerson.confirmPassword.length"
+            <div v-if="legalPerson.password !== legalPerson.password_confirmation && legalPerson.password_confirmation.length"
               class="flex justify-end mt-1">
               <span class="text-redCustom text-sm">Las contraseñas no coinden</span>
             </div>
@@ -222,6 +222,7 @@ import slade3 from '../assets/login/slider3.png'
 
 import Btn from '../components/Btn.vue'
 import { LegalPerson, Natural } from '../model/user'
+import moment from 'moment-timezone'
 
 export default defineComponent({
   name: 'login',
@@ -231,6 +232,7 @@ export default defineComponent({
     Btn
   },
   setup() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
     const isPerson = ref('person')
     const inputType = ref('password')
     const toggleInput = () => inputType.value === 'password' ? inputType.value = 'text' : inputType.value = 'password'
@@ -245,16 +247,16 @@ export default defineComponent({
       password: '',
       password_confirmation: '',
       email: '',
-      apiKey: '',
+      apiKey: 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g',
       utcTimeStamp: '',
-      signature: '',
+      signature: ''
     })
 
     const legalPerson = reactive<LegalPerson>({
       telephone: '',
       razon_social: '',
       type_user_id: 1,
-      verify_tc: '',
+      verify_tc: '1',
       email: '',
       password: '',
       password_confirmation: '',
@@ -266,25 +268,31 @@ export default defineComponent({
 
     const registerPerson = () => {
       if (isPerson.value === 'person') {
-        // getTimeZ()
-        // console.log(naturalPerson)
-        RegisterUser(naturalPerson)
-          .then((res: any) => {
-            console.log(res)
-          })
+        naturalPerson.identy_document = naturalPerson.identy_document.toString()
+        naturalPerson.telephone = naturalPerson.telephone.toString()
+        naturalPerson.utcTimeStamp = moment().tz(timezone).format('Y-m-d\TH:m:s\Z')
+        // naturalPerson.signature = `DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR6,VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g,${moment().tz(timezone).format('Y-m-d\TH:m:s\Z')}`
+        console.log(naturalPerson);
+
+        // RegisterUser(naturalPerson)
+        //   .then((res: any) => {
+        //     console.log(res)
+        //   })
       } else {
+        legalPerson.NIT = legalPerson.NIT.toString()
+        legalPerson.telephone = legalPerson.telephone.toString()
+        legalPerson.utcTimeStamp = moment().tz(timezone).format('Y-m-d\TH:m:s\Z')
         console.log(legalPerson);
       }
     }
 
     const getTimeZ = () => {
       getTimezone()
-        .then((res: any) => {
-          naturalPerson.utcTimeStamp = res.timezone
+        .then((res) => {
+          // naturalPerson.utcTimeStamp = res.timezone
           console.log(res.timezone)
         })
     }
-
 
     const foo = () => {
       getPokes()
