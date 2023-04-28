@@ -54,6 +54,32 @@ const store = createStore({
         utcTimeStamp: '',
         signature: '',
       }
+      state.categories = [
+      {
+        id: 1,
+        name: 'ACCIÓN'
+      },
+      {
+        id: 2,
+        name: 'AVENTURA'
+      },
+      {
+        id: 3,
+        name: 'COMEDIA'
+      },
+      {
+        id: 4,
+        name: 'TERROR'
+      },
+      {
+        id: 5,
+        name: 'ROMANCE'
+      },
+      {
+        id: 6,
+        name: 'MISTERIO'
+      },
+    ]
       localStorage.removeItem('user')
       localStorage.removeItem('categories')
       state.isLogued = false

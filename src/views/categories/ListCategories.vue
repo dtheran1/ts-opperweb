@@ -5,9 +5,10 @@
     </div>
 
     <div class="mt-20 grid gricol1 md:grid-cols-3 gap-10">
+      <p v-if="!categories.length"> Lo siento no tienes categorias, puedes empezar a crearlas </p>
       <div v-for="category in categories" :key="category.id"
         class="w-60 h-32 relative flex flex-col bg-complement rounded-lg text-white items-center justify-center font-semibold text-2xl">
-        <p>{{ category.name }}</p>
+        <p class="truncate w-full px-2 text-center">{{ category.name }}</p>
         <button @click="updateCategory(category)"
           class="hover:underline cursor-pointer justify-end absolute bottom-1 right-3 text-sm font-normal">
           Editar
