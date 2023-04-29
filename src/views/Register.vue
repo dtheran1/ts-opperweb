@@ -216,9 +216,9 @@ import Slide from '../components/SliderComponent.vue'
 import Btn from '../components/Btn.vue'
 import { getTimezone } from '../services/getTimeZone'
 import { registerUser } from '../services/Register'
-
 import { LegalPerson, Natural } from '../model/user'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { createAsignature } from '../util/createAsignature'
 
 export default defineComponent({
   name: 'login',
@@ -261,15 +261,6 @@ export default defineComponent({
       signature: ''
     })
 
-    const PUBLIC_KEY = 'VBNfgfTYrt5666FGHFG6FGH65GHFGHF656g'
-    const PRIVATE_KEY = "DGDFGDbnbnTRTEfg67hgyTYRTY56gfhdR";
-    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    const getAsiginature = (data: string) => {
-      const hash = CryptoJS.SHA256(data);
-      return hash.toString(CryptoJS.enc.Hex);
-    }
-
     const registerPerson = () => {
       if (isPerson.value === 'person') {
         naturalPerson.identy_document = naturalPerson.identy_document.toString()
@@ -285,11 +276,10 @@ export default defineComponent({
     const getTimeZ = () => {
       getTimezone()
         .then((res) => {
-          const dataAsignature = `${PRIVATE_KEY},${PUBLIC_KEY},${res.timezone}`
           naturalPerson.utcTimeStamp = res.timezone
           legalPerson.utcTimeStamp = res.timezone
-          naturalPerson.signature = getAsiginature(dataAsignature)
-          legalPerson.signature = getAsiginature(dataAsignature)
+          naturalPerson.signature = createAsignature(res.timezone)
+          legalPerson.signature = createAsignature(res.timezone)
         }).catch(() => {
           Swal.fire({
             icon: 'error',
