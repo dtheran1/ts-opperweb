@@ -1,14 +1,14 @@
 <template>
   <div class="flex text-white">
-    <div class="bg-complement w-1/4 min-h-screen p-6">
+    <div class="bg-complement w-1/4 min-h-screen xs:pt-6 xs:pl-3 md:p-6">
       <div class="flex gap-3">
         <router-link :to="{ name: 'Home' }">
           <img src="../assets/login/image 1.png" alt="logo" class=" min-w-fit w-12">
         </router-link>
-        <h1 class="text-xl font-extrabold self-center">anime<span class="text-primary">yabu.</span> </h1>
+        <h1 class="text-xl font-extrabold self-center hidden md:block">anime<span class="text-primary">yabu.</span> </h1>
       </div>
 
-      <div class="pl-5">
+      <div class="md:pl-5">
         <div class="mt-14">
           <h2 class="font-bold text-lg">Categorías</h2>
 
