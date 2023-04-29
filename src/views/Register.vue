@@ -3,7 +3,7 @@
     class="md:w-full  xs:border-gray-100 xs:border-2  lg:border-none rounded-xl lg:rounded-none grid grid-cols-1 md:grid-cols-2 bg-gradient-to-b from-primary to-secondary min-h-screen">
     <div class="md:bg-black pt-6">
       <div class="pl-[34px] pt-5 pb-6 hidden lg:flex">
-        <img src="../assets/login/image 1.png" alt="logo-page">
+        <img src="../assets/login/image-1.png" alt="logo-page">
         <span class="font-extrabold text-white self-center pl-3">anime<span class="text-primary">yabu.</span></span>
       </div>
       <img src="../assets/login/arrowLeft.svg" class="pl-[34px]" alt="arrow-left">

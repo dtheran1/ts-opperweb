@@ -3,7 +3,7 @@
     class="md:w-full  xs:border-gray-100 xs:border-2  lg:border-none rounded-xl lg:rounded-none grid grid-cols-1 md:grid-cols-2 bg-gradient-to-b from-primary to-secondary min-h-screen">
     <div class="md:bg-black pt-6">
       <div class="pl-[34px] pt-5 pb-6 hidden lg:flex">
-        <img src="../assets/login/image 1.png" alt="logo-page">
+        <img src="../assets/login/image-1.png" alt="logo-page">
         <span class="font-extrabold text-white self-center pl-3">anime<span class="text-primary">yabu.</span></span>
 
       </div>
@@ -21,7 +21,7 @@
         <form class="mt-1" @submit.prevent="login">
           <div>
             <p>Email</p>
-            <div class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
+            <div class="mt-1 w-80 rounded-lg h-14 border-2 border-white bg-grayCustom text-white placeholder-white">
               <input required type="email" class="h-full pl-4 w-full bg-transparent placeholder-white focus:outline-none"
                 placeholder="usuario@" v-model="user.email">
             </div>
@@ -32,7 +32,7 @@
           <div class="mt-4">
             <p>Contraseña</p>
             <div
-              class="mt-1 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
+              class="mt-1 w-80 rounded-lg h-14 border-2 border-white bg-grayCustom text-white px-4 placeholder-white flex justify-between">
               <input required :type="inputType" class="h-full bg-transparent placeholder-white focus:outline-none"
                 placeholder="• • • • • • •" v-model="user.password">
                 <img src="../assets/login/ojito.svg" alt="showPassword" @click.prevent="toggleInput" class="w-5 cursor-pointer">
