@@ -36,9 +36,18 @@ const store = createStore({
         id: 6,
         name: 'MISTERIO'
       },
-    ]
+    ],
+    search: ''
   },
-  getters: {},
+  getters: {
+    filteredCategories (state) {
+      let categories = state.categories
+      if(typeof state.search === 'string' && state.search.length > 0) {
+        return categories.filter(item => item.name.toLowerCase().includes(state.search))
+      }
+      return categories
+    }
+  },
   mutations: {
     login(state, user) {
       state.user = user
@@ -103,7 +112,10 @@ const store = createStore({
       const index = state.categories.findIndex(c => c.id === payload.id)
       state.categories[index] = payload
       localStorage.setItem('categories', JSON.stringify(state.categories))
-    }
+    },
+    setSearch(state, payload) {
+      state.search = payload
+    },
   },
   actions: {
     createCategory({ commit }, payload ) {
@@ -111,8 +123,10 @@ const store = createStore({
     },
     updateCategory({ commit }, payload) {
       commit('updateCategory', payload)
+    },
+    setSearch({ commit }, payload) {
+      commit('setSearch', payload)
     }
-
   }
 })
 
